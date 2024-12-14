@@ -250,3 +250,9 @@ app.post('/removeFav', async (req, res) => {
     //localStorage.setItem('favorites', favorites);
     return res.redirect('/');
 });
+
+app.get('/clear', (req, res) => {
+    artists = null;
+    error = null;
+    res.redirect('/');
+});

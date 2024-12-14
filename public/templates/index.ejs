@@ -255,6 +255,9 @@
         
             <% if (!user) { %>
                 <div class="auth-buttons">
+                    <a href="/clear">
+                        <button class="login-btn">Reset</button>
+                    </a>
                     <a href="/signin">
                         <button class="login-btn">Login</button>
                     </a>
@@ -264,6 +267,9 @@
                 </div>
             <% } else { %>
                 <div class="auth-buttons">
+                    <a href="/clear">
+                        <button class="login-btn">Reset</button>
+                    </a>
                     <a href="/signout">
                         <button class="login-btn">Sign Out</button>
                     </a>
