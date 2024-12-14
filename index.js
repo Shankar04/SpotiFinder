@@ -27,6 +27,10 @@ const spotifyApi = new SpotifyWebApi({
     redirectUri: process.env.REDIRECT_URI
 });
 
+console.log(process.env.CLIENT_ID);
+console.log(process.env.CLIENT_SECRET);
+console.log(process.env.REDIRECT_URI);
+
 let accessToken = null;
 let user = null;
 let artists = null;
@@ -53,7 +57,7 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
-    console.log(`Server started at http://localhost:${port}`);
+    console.log(`Server live :)`);
 });
 
 app.get("/", (req, res) => {
@@ -63,6 +67,7 @@ app.get("/", (req, res) => {
 app.get('/login', (req, res) => {
     const scopes = ['user-read-private', 'user-read-email'];
     const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
+    console.log(authorizeURL);
     res.redirect(authorizeURL);
 });
 
