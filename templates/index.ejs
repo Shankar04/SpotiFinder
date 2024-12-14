@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SpotiFinder</title>
+    <style>
+        body {
+            background-color: #18181b;
+            font-family: 'Roobert', sans-serif;
+            margin: 0;
+            color: #ffffff;
+            display: flex;
+            height: 100vh; /* Ensure full viewport height */
+        }
+    
+        header {
+            background-color: #1f1f23;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2c2c30;
+        }    
+
+        #logo {
+            height: 40px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input[type="text"] {
+            background-color: #0e0e10;
+            border: 1px solid #313131;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .search-bar input[type="submit"] {
+            transition: 0.3s ease;
+            background-color: #20d464;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-bar input[type="submit"]:hover {
+            transition: 0.3s ease;
+            background-color:rgb(19, 187, 84);
+        }
+
+        .sidebar {
+            background-color: #1f1f23;
+            width: 240px;
+            height: 100%; /* Full height to match the body */
+            overflow-y: auto;
+            border-right: 1px solid #2c2c30;
+            padding: 10px;
+            flex-shrink: 0; /* Prevent the sidebar from shrinking */
+        }
+
+        .sidebar h3 {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Allow the main content to take up the remaining space */
+            width: 100%;
+        }
+
+        .channel {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .channel img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .channel .info {
+            color: #ffffff;
+        }
+
+        .channel .info h4 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .channel .info p {
+            margin: 0;
+            font-size: 12px;
+            color: #b3b3b3;
+        }
+
+        .channel .info a {
+            text-decoration: none;
+            color: #1db954;
+            transition: color 0.3s ease;
+        }
+
+        .channel .info a:hover {
+            color: white;
+        }
+
+        main {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 20px; /* Spacing between cards */
+            margin-top: 20px;
+        }
+        
+        .artist-card {
+            background-color: #1f1f23;
+            border: 1px solid #2c2c30;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .artist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+        
+        .artist-card img {
+            width: 100%; /* Full width of the card */
+            height: auto;
+            border-bottom: 1px solid #2c2c30;
+            margin-bottom: 10px;
+        }
+        
+        .artist-card h4 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+        
+        .artist-card h4 a {
+            text-decoration: none;
+            color: #1db954;
+            transition: color 0.3s ease;
+        }
+        
+        .artist-card h4 a:hover {
+            color: #1aa34a;
+        }
+        
+        .artist-card p {
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+
+
+        .auth-buttons {
+            display: flex;
+            gap: 5px; 
+            justify-content: flex-end;
+        }
+        
+        .login-btn {
+            transition: 0.3s ease;
+            background-color:rgb(45, 51, 47);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 20px;
+            font-size: 14px;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .login-btn:hover {
+            transition: 0.3s ease;
+            background-color: rgb(19, 187, 84);
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #555; /* Gray color */
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h3>Followed Channels</h3>
+        <hr>
+        <% if (user && favorites && favorites.length > 0) { %>
+            <% favorites.forEach(favorite => { %>
+                <div class="channel">
+                    <img src="<%= favorite.image || 'https://via.placeholder.com/40' %>" alt="<%= favorite.name %>">
+                    <div class="info">
+                        <h4><a href="<%= favorite.url %>" target="_blank"><%= favorite.name %></a></h4>
+                        <p><%= favorite.followers.toLocaleString() %> followers</p>
+                    </div>
+                </div>
+                <hr>
+            <% }); %>
+        <% } else { %>
+            <p>No followed channels to display.</p>
+        <% } %>
+    </div>
+
+    <div class="content-wrapper">
+        <header>
+            <img id="logo" src="/templates/spotifinder_logo.png" alt="SpotiFlyer Logo">
+        
+            <div class="search-bar">
+                <form action="/search" method="get">
+                    <input type="text" name="artist" placeholder="Search for an artist..." required>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+        
+            <% if (!user) { %>
+                <div class="auth-buttons">
+                    <a href="/signin">
+                        <button class="login-btn">Login</button>
+                    </a>
+                    <a href="/signup">
+                        <button class="login-btn">Sign Up</button>
+                    </a>
+                </div>
+            <% } else { %>
+                <div class="auth-buttons">
+                    <a href="/signout">
+                        <button class="login-btn">Sign Out</button>
+                    </a>
+                </div>
+            <% } %>
+            
+        </header>
+        
+
+        <main>
+            <% if (user) { %>
+                <h2>Welcome, <%= user.username %>!</h2>
+                <hr>
+            <% } %>
+            <h2>Search for Artists</h2>
+        
+            <% if (error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %>
+        
+            <% if (artists && artists.length > 0) { %>
+                <div class="artist-grid">
+                    <% artists.forEach(artist => { %>
+                        <form action="/addFav" method="POST" class="artist-card-form">
+                            <div class="artist-card" 
+                                data-name="<%= artist.name %>" 
+                                data-image="<%= artist.image || 'https://via.placeholder.com/200' %>" 
+                                data-url="<%= artist.url %>" 
+                                data-genres="<%= artist.genres.join(',') %>" 
+                                data-followers="<%= artist.followers %>"
+                                data-type="<%= artist.type %>">
+                                <img src="<%= artist.image || 'https://via.placeholder.com/200' %>" alt="<%= artist.name %>">
+                                <h4><a href="<%= artist.url %>" target="_blank"><%= artist.name %></a></h4>
+                                <p><strong>Followers:</strong> <%= artist.followers.toLocaleString() %></p>
+                            </div>
+
+                            <input type="hidden" name="name" value="<%= artist.name %>">
+                            <input type="hidden" name="image" value="<%= artist.image || 'https://via.placeholder.com/200' %>">
+                            <input type="hidden" name="url" value="<%= artist.url %>">
+                            <input type="hidden" name="genres" value="<%= artist.genres.join(',') %>">
+                            <input type="hidden" name="followers" value="<%= artist.followers %>">
+                            <input type="hidden" name="type" value="<%= artist.type %>">
+                        </form>
+                    <% }); %>
+                </div>               
+            <% } %>
+        </main>
+        
+    </div>
+</body>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const artistCards = document.querySelectorAll('.artist-card');
+    
+        artistCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const form = card.closest('form');
+                form.submit(); // Submit the form when the card is clicked
+            });
+        });
+    });
+    
+</script>
+
+</html>

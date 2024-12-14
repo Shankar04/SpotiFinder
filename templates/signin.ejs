@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sign In - SpotiFinder</title>
+    <style>
+        body {
+            background-color: #18181b;
+            font-family: 'Roobert', sans-serif;
+            margin: 0;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #1f1f23;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            color: #ffffff;
+        }
+
+        #logo {
+            width: 150px;
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+        }
+
+        .home-btn {
+            background-color: #20d464;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+
+        .home-btn:hover {
+            background-color: rgb(19, 187, 84);
+        }
+
+        .signin-container {
+            background-color: #1f1f23;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-input {
+            background-color: #0e0e10;
+            border: 1px solid #313131;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            width: 94%;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #20d464;
+        }
+
+        .signin-btn {
+            background-color: #20d464;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+
+        .signin-btn:hover {
+            background-color: rgb(19, 187, 84);
+        }
+
+        .signup-btn {
+            background-color: rgb(45, 51, 47);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: rgb(19, 187, 84);
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #555; /* Gray color */
+            margin: 20px 0;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header with Home Button -->
+    <header>
+        <img id="logo" src="/templates/spotifinder_logo.png" alt="SpotiFinder Logo">
+        <div class="auth-buttons">
+            <a href="/">
+                <button class="home-btn">Home</button>
+            </a>
+        </div>
+    </header>
+
+    <div class="signin-container">
+        <h2>Sign In</h2>
+
+        <% if (error) { %>
+            <div class="error-message">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+
+        <form action="/processSignIn" method="post">
+            <input type="text" name="email" placeholder="Email" class="form-input" required>
+            <input type="password" name="password" placeholder="Password" class="form-input" required>
+            <button type="submit" class="signin-btn">Sign In</button>
+        </form>
+
+        <hr>
+
+        <div class="form-container">
+            <a href="/signup">
+                <button class="signup-btn">Sign Up</button>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
