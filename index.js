@@ -100,6 +100,7 @@ app.get('/search', async (req, res) => {
     q = (artist) ? artist : q;
 
     if (!accessToken) {
+        console.log('No access token found, trying to login');
         return res.redirect('/login');
     }
 
