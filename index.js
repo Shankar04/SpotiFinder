@@ -239,12 +239,12 @@ app.post('/addFav', async (req, res) => {
     return res.redirect('/'); 
 });
 
-app.get('/removeFav', async (req, res) => {
+app.post('/removeFav', async (req, res) => {
     if (!user) {
         return res.redirect('/signin');
     }
 
-    const { url } = req.query;
+    const { url } = req.body;
     favorites = favorites.filter(fav => fav.url !== url);
     updateFavorites(favorites);
     //localStorage.setItem('favorites', favorites);
