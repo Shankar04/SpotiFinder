@@ -238,3 +238,15 @@ app.post('/addFav', async (req, res) => {
     //localStorage.setItem('favorites', favorites);
     return res.redirect('/'); 
 });
+
+app.get('/removeFav', async (req, res) => {
+    if (!user) {
+        return res.redirect('/signin');
+    }
+
+    const { url } = req.query;
+    favorites = favorites.filter(fav => fav.url !== url);
+    updateFavorites(favorites);
+    //localStorage.setItem('favorites', favorites);
+    return res.redirect('/');
+});

@@ -216,13 +216,23 @@
         <hr>
         <% if (user && favorites && favorites.length > 0) { %>
             <% favorites.forEach(favorite => { %>
-                <div class="channel">
-                    <img src="<%= favorite.image || 'https://via.placeholder.com/40' %>" alt="<%= favorite.name %>">
-                    <div class="info">
-                        <h4><a href="<%= favorite.url %>" target="_blank"><%= favorite.name %></a></h4>
-                        <p><%= favorite.followers.toLocaleString() %> followers</p>
+                <form action="/removeFav" method="POST" class="channel-form">
+                    <div class="channel">
+                        <img src="<%= favorite.image || 'https://via.placeholder.com/40' %>" alt="<%= favorite.name %>">
+                        <div class="info">
+                            <h4><a href="<%= favorite.url %>" target="_blank"><%= favorite.name %></a></h4>
+                            <p><%= favorite.followers.toLocaleString() %> followers</p>
+                        </div>
                     </div>
-                </div>
+                    <input type="hidden" name="name" value="<%= favorite.name %>">
+                    <input type="hidden" name="image" value="<%= favorite.image || 'https://via.placeholder.com/40' %>">
+                    <input type="hidden" name="url" value="<%= favorite.url %>">
+                    <input type="hidden" name="followers" value="<%= favorite.followers %>">
+                    <input type="hidden" name="type" value="<%= favorite.type %>">
+                    <button type="submit" style="background: none; border: none; color: red; font-size: 20px; cursor: pointer;" title="Remove">
+                        &minus;
+                    </button>
+                </form>
                 <hr>
             <% }); %>
         <% } else { %>
