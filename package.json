@@ -6,13 +6,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "shankar",
   "license": "ISC",
-  "description": "",
+  "description": "Submitted by: Shankar Soma (directory id: nilesh04)  \r Group Members: N/A  \r App Description: Allow users to find songs of an artists and store the results in an account.  \r YouTube Video Link: [https://www.youtube.com/MyAmazingAPP](https://www.youtube.com/MyAmazingAPP)  \r APIs: Spotify Web API Node [https://developer.spotify.com/documentation/web-api](https://developer.spotify.com/documentation/web-api)  \r Contact Email: nilesh04@terpmail.umd.edu",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "node-localstorage": "^3.0.5",
-    "spotify-web-api-node": "^5.0.2"
+    "spotify-web-api-node": "^5.0.2",
+    "body-parser": "^1.20.2",
+    "path": "^0.12.7",
+    "process": "^0.11.10",
+    "mongodb": "^6.11.0",
+    "ejs": "3.1.10"
   }
 }
